@@ -4,6 +4,7 @@
         <Identity Id="DateTimeNow.dec6d31d-79d8-4e17-91f1-0a8a87353121" Version="1.0" Language="en-US" Publisher="Arda Terekeci" />
         <DisplayName>DateTimeNow</DisplayName>
         <Description xml:space="preserve">Refactors DateTime.Now  to Object Creation eg. new DateTime(2021, 11, 20, 18, 7, 29, 998)</Description>
+        <MoreInfo>https://github.com/adomorn/DateTimeNow</MoreInfo>
         <Icon>Calendar-icon.png</Icon>
         <PreviewImage>Calendar-icon.png</PreviewImage>
     </Metadata>
