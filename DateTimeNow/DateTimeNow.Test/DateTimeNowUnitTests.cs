@@ -9,51 +9,32 @@ namespace DateTimeNow.Test
     [TestClass]
     public class DateTimeNowUnitTest
     {
-        //No diagnostics expected to show up
+    
+        //Two diagnostics expected to show up
         [TestMethod]
         public async Task TestMethod1()
         {
-            var test = @"";
+            
+            const string test = @"
+using System;
 
-            await VerifyCS.VerifyAnalyzerAsync(test);
-        }
-
-        //Diagnostic and CodeFix both triggered and checked for
-        [TestMethod]
-        public async Task TestMethod2()
-        {
-            var test = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
-
-    namespace ConsoleApplication1
+class Program
+{
+    static void Main()
     {
-        class {|#0:TypeName|}
-        {   
-        }
-    }";
+        var a = DateTime.Now;
+        var b = DateTime.UtcNow;
+        Console.WriteLine();
+    }
+}
+";
 
-            var fixtest = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
-
-    namespace ConsoleApplication1
-    {
-        class TYPENAME
-        {   
+            await VerifyCS.VerifyAnalyzerAsync(test,
+                VerifyCS.Diagnostic("DateTimeNow").WithSpan(8, 17, 8, 29).WithArguments("Now or UtcNow"),
+                VerifyCS.Diagnostic("DateTimeNow").WithSpan(9, 17, 9, 32).WithArguments("Now or UtcNow")
+                );
         }
-    }";
 
-            var expected = VerifyCS.Diagnostic("DateTimeNow").WithLocation(0).WithArguments("TypeName");
-            await VerifyCS.VerifyCodeFixAsync(test, expected, fixtest);
-        }
+      
     }
 }
